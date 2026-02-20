@@ -1,5 +1,5 @@
 {
-  "name": "@tinyland-inc/tinyland-video-thumbnails",
+  "name": "@tummycrypt/tinyland-video-thumbnails",
   "version": "0.1.0",
   "description": "Video thumbnail resolver for YouTube, PeerTube, and Vimeo with in-memory caching",
   "type": "module",
@@ -48,5 +48,9 @@
   },
   "engines": {
     "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   }
 }

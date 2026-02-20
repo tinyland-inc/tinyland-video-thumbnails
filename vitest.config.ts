@@ -1,5 +1,5 @@
 /**
- * Vitest Configuration for @tinyland-inc/tinyland-video-thumbnails
+ * Vitest Configuration for @tummycrypt/tinyland-video-thumbnails
  *
  * Works in three modes:
  *   1. Standalone:  cd packages/tinyland-video-thumbnails && pnpm test
