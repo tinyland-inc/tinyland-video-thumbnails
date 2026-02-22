@@ -1,6 +1,6 @@
 {
   "name": "@tummycrypt/tinyland-video-thumbnails",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Video thumbnail resolver for YouTube, PeerTube, and Vimeo with in-memory caching",
   "type": "module",
   "license": "Zlib AND LicenseRef-Tinyland-Proprietary",
