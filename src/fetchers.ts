@@ -1,10 +1,10 @@
 import type { ThumbnailResult } from './types.js';
 import { extractYouTubeId } from './platforms.js';
 
-/**
- * Fetch the best available YouTube thumbnail by probing URLs from
- * highest to lowest resolution.
- */
+
+
+
+
 export async function fetchYouTubeThumbnail(url: string): Promise<ThumbnailResult | null> {
 	const videoId = extractYouTubeId(url);
 	if (!videoId) return null;
@@ -35,9 +35,9 @@ export async function fetchYouTubeThumbnail(url: string): Promise<ThumbnailResul
 	return null;
 }
 
-/**
- * Fetch thumbnail for a PeerTube video by querying the instance API.
- */
+
+
+
 export async function fetchPeerTubeThumbnail(url: string): Promise<ThumbnailResult | null> {
 	try {
 		const urlObj = new URL(url);
@@ -70,9 +70,9 @@ export async function fetchPeerTubeThumbnail(url: string): Promise<ThumbnailResu
 	}
 }
 
-/**
- * Fetch thumbnail for a Vimeo video via the oEmbed API.
- */
+
+
+
 export async function fetchVimeoThumbnail(url: string): Promise<ThumbnailResult | null> {
 	try {
 		const oembedUrl = `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`;
