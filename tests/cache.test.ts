@@ -80,7 +80,7 @@ describe('getVideoThumbnail', () => {
 
 		await getVideoThumbnail('https://www.youtube.com/watch?v=expire');
 
-		// Advance past TTL
+		
 		vi.advanceTimersByTime(CACHE_TTL + 1);
 
 		const refreshed = await getVideoThumbnail('https://www.youtube.com/watch?v=expire');
@@ -96,7 +96,7 @@ describe('getVideoThumbnail', () => {
 
 		await getVideoThumbnail('https://www.youtube.com/watch?v=noexpire');
 
-		// Advance to just before TTL
+		
 		vi.advanceTimersByTime(CACHE_TTL - 1);
 
 		const cached = await getVideoThumbnail('https://www.youtube.com/watch?v=noexpire');
@@ -125,7 +125,7 @@ describe('getVideoThumbnail', () => {
 		mockFetch.mockResolvedValue({ ok: false });
 
 		await getVideoThumbnail('https://www.youtube.com/watch?v=fail');
-		// All 3 resolutions fail, result is null
+		
 
 		const stats = getCacheStats();
 		expect(stats.size).toBe(0);
@@ -175,7 +175,7 @@ describe('getVideoThumbnail', () => {
 
 		vi.advanceTimersByTime(CACHE_TTL + 1);
 
-		// During this call, expired entry is deleted then re-fetched
+		
 		await getVideoThumbnail('https://www.youtube.com/watch?v=expDel');
 		expect(getCacheStats().size).toBe(1);
 		expect(mockFetch).toHaveBeenCalledTimes(2);
@@ -278,7 +278,7 @@ describe('getCacheStats', () => {
 
 		clearThumbnailCache();
 
-		// The captured stats should still have the old data
+		
 		expect(stats.size).toBe(1);
 		expect(stats.keys).toHaveLength(1);
 	});
@@ -339,15 +339,15 @@ describe('pruneExpiredCache', () => {
 	it('removes only expired entries in mixed cache', async () => {
 		mockFetch.mockResolvedValue({ ok: true });
 
-		// Add old entry
+		
 		await getVideoThumbnail('https://www.youtube.com/watch?v=old1');
 
 		vi.advanceTimersByTime(CACHE_TTL - 500);
 
-		// Add fresh entry
+		
 		await getVideoThumbnail('https://www.youtube.com/watch?v=new1');
 
-		vi.advanceTimersByTime(1000); // Now old1 is expired, new1 is fresh
+		vi.advanceTimersByTime(1000); 
 
 		const removed = pruneExpiredCache();
 		expect(removed).toBe(1);
@@ -460,11 +460,11 @@ describe('integration: full flow', () => {
 
 	it('handles sequential calls to different platforms', async () => {
 		mockFetch
-			.mockResolvedValueOnce({ ok: true }) // YouTube
+			.mockResolvedValueOnce({ ok: true }) 
 			.mockResolvedValueOnce({
 				ok: true,
 				json: async () => ({ thumbnail_url: 'https://i.vimeocdn.com/v.jpg' }),
-			}); // Vimeo
+			}); 
 
 		const yt = await getVideoThumbnail('https://www.youtube.com/watch?v=seq1');
 		const vim = await getVideoThumbnail('https://vimeo.com/seq2');
@@ -486,7 +486,7 @@ describe('integration: full flow', () => {
 
 		await getVideoThumbnail('https://vimeo.com/surv2');
 
-		// Now fetch YouTube from cache
+		
 		const cached = await getVideoThumbnail('https://www.youtube.com/watch?v=surv1');
 		expect(cached?.cached).toBe(true);
 	});
@@ -495,18 +495,18 @@ describe('integration: full flow', () => {
 		vi.useFakeTimers();
 		mockFetch.mockResolvedValue({ ok: true });
 
-		// Initial fetch
+		
 		const first = await getVideoThumbnail('https://www.youtube.com/watch?v=cycle');
 		expect(first?.cached).toBe(false);
 
-		// Cached
+		
 		const second = await getVideoThumbnail('https://www.youtube.com/watch?v=cycle');
 		expect(second?.cached).toBe(true);
 
-		// Expire
+		
 		vi.advanceTimersByTime(CACHE_TTL + 1);
 
-		// Refetch
+		
 		const third = await getVideoThumbnail('https://www.youtube.com/watch?v=cycle');
 		expect(third?.cached).toBe(false);
 
