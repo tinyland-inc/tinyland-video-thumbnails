@@ -1,11 +1,11 @@
-/**
- * Vitest Configuration for @tummycrypt/tinyland-video-thumbnails
- *
- * Works in three modes:
- *   1. Standalone:  cd packages/tinyland-video-thumbnails && pnpm test
- *   2. Workspace:   vitest run --project=tinyland-video-thumbnails (from root)
- *   3. Bazel:       bazel test //packages/tinyland-video-thumbnails:test
- */
+
+
+
+
+
+
+
+
 
 import { defineConfig } from 'vitest/config';
 import { fileURLToPath } from 'node:url';
